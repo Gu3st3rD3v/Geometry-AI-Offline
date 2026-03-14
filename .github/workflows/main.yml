@@ -7,16 +7,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Buildozer-Action
+      - name: Build com Buildozer
         uses: ArtemSBulgakov/buildozer-action@v1
         with:
           command: buildozer android debug
           buildozer_version: master
         env:
+          # Força o uso do Node 24 e ignora avisos de depreciação
           ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
-      - name: Upload-Artifact
+      - name: Upload do APK
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: Geometry-AI-APK
