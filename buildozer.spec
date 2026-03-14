@@ -1,12 +1,23 @@
-[app]
-title = Geometry AI
-package.name = geometryai
-package.domain = org.guesterdev
-source.dir = .
-source.include_exts = py,png,jpg,kv,atlas
-version = 0.1
-requirements = python3,kivy==2.3.0,requests,urllib3,certifi,idna
-orientation = portrait
-fullscreen = 0
-android.archs = arm64-v8a
-android.allow_backup = True
+name: Geometry-Build
+on: [push]
+
+jobs:
+  android-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Buildozer-Action
+        uses: ArtemSBulgakov/buildozer-action@v1
+        with:
+          command: buildozer android debug
+          buildozer_version: master
+        env:
+          ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+      - name: Upload-Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Geometry-AI-APK
+          path: bin/*.apk
