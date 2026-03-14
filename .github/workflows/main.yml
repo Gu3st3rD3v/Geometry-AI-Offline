@@ -1,19 +1,19 @@
-name: Geometry AI Offline
-on: [push, pull_request]
+name: Geometry-AI-Offline
+on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
-      - name: Build with Buildozer
-        uses: ArtemShatalov/buildozer-action@v1
+      - name: Build com Buildozer
+        uses: ArtemSBulgakov/buildozer-action@v1
         with:
           command: buildozer android debug
           buildozer_version: master
 
-      - name: Upload APK
+      - name: Guardar APK
         uses: actions/upload-artifact@v3
         with:
           name: Geometry-AI-APK
